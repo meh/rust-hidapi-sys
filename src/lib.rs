@@ -30,12 +30,13 @@ pub struct hid_device_info {
 #[cfg_attr(target_os = "linux", link(name = "udev"))]
 extern "C" { }
 
-#[cfg_attr(all(feature = "static", feature = "raw"), link(name = "hidapi-hidraw", kind = "static"))]
-#[cfg_attr(all(not(feature = "static"), feature = "raw"), link(name = "hidapi-hidraw"))]
-#[cfg_attr(all(feature = "static", feature = "usb"), link(name = "hidapi-libusb", kind = "static"))]
-#[cfg_attr(all(not(feature = "static"), feature = "usb"), link(name = "hidapi-libusb"))]
-#[cfg_attr(all(feature = "static", not(feature = "raw"), not(feature = "usb")), link(name = "hidapi", kind = "static"))]
-#[cfg_attr(all(not(feature = "static"), not(feature = "raw"), not(feature = "usb")), link(name = "hidapi"))]
+#[cfg_attr(target_os = "windows", link(name = "setupapi"))]
+extern "C" { }
+
+#[cfg_attr(all(feature = "static", target_os = "linux"), link(name = "hidapi-libusb", kind = "static"))]
+#[cfg_attr(all(not(feature = "static"), target_os = "linux"), link(name = "hidapi-libusb"))]
+#[cfg_attr(all(feature = "static", not(target_os = "linux")), link(name = "hidapi", kind = "static"))]
+#[cfg_attr(all(not(feature = "static"), not(target_os = "linux")), link(name = "hidapi"))]
 extern "C" {
 	pub fn hid_init() -> c_int;
 	pub fn hid_exit() -> c_int;

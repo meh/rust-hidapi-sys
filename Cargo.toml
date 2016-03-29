@@ -12,9 +12,6 @@ repository  = "https://github.com/meh/rust-hidapi-sys"
 keywords    = ["hid"]
 
 [features]
-raw = []
-usb = []
-
 static = []
 build  = ["static"]
 
