@@ -34,12 +34,7 @@ fn fetch() -> io::Result<()> {
 		.arg("hidapi")
 		.status());
 
-	if status.success() {
-		Ok(())
-	}
-	else {
-		Err(io::Error::new(io::ErrorKind::Other, "fetch failed"))
-	}
+	Ok(())
 }
 
 #[cfg(target_os = "linux")]
