@@ -26,13 +26,12 @@ fn source() -> PathBuf {
 }
 
 fn fetch() -> io::Result<()> {
-	let url    = "https://github.com/signal11/hidapi.git";
-	let status = try!(Command::new("git")
+	Command::new("git")
 		.current_dir(&output())
 		.arg("clone")
-		.arg(url)
+		.arg("https://github.com/signal11/hidapi.git")
 		.arg("hidapi")
-		.status());
+		.status()?;
 
 	Ok(())
 }
