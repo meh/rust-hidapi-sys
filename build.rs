@@ -53,6 +53,22 @@ fn build() -> io::Result<()> {
 	Ok(())
 }
 
+#[cfg(target_os = "macos")]
+fn build() -> io::Result<()> {
+	let mut config = gcc::Config::new();
+
+	config.file(source().join("libusb/hid.c"));
+	config.include(source().join("hidapi"));
+
+	for path in pkg_config::find_library("libusb-1.0").unwrap().include_paths {
+		config.include(path.to_str().unwrap());
+	}
+
+	config.compile("libhidapi.a");
+
+	Ok(())
+}
+
 #[cfg(target_os = "windows")]
 fn build() -> io::Result<()> {
 	let mut config = gcc::Config::new();
