@@ -47,7 +47,7 @@ fn build() -> io::Result<()> {
 		config.include(path.to_str().unwrap());
 	}
 
-	config.compile("libhidapi.a");
+	config.compile("libhidapi-libusb.a");
 
 	Ok(())
 }
