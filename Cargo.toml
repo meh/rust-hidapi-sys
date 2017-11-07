@@ -1,6 +1,6 @@
 [package]
 name    = "hidapi-sys"
-version = "0.1.2"
+version = "0.1.3"
 build   = "build.rs"
 links   = "hidapi"
 
