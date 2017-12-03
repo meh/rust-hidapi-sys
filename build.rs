@@ -57,7 +57,7 @@ fn build() -> io::Result<()> {
 		build.include(path.to_str().unwrap());
 	}
 
-	build.compile("libhidapi-libusb.a");
+	build.compile("libhidapi-libusb-rust.a");
 
 	Ok(())
 }
