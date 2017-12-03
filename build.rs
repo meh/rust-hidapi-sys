@@ -47,44 +47,47 @@ fn fetch() -> io::Result<()> {
 
 #[cfg(target_os = "linux")]
 fn build() -> io::Result<()> {
-	let mut config = cc::Build::new();
+	let mut build = cc::Build::new();
 
-	config.file(source().join("libusb/hid.c"));
-	config.include(source().join("hidapi"));
+	build.file(source().join("libusb/hid.c"));
+	build.include(source().join("hidapi"));
+	build.static_flag(true);
 
 	for path in pkg_config::find_library("libusb-1.0").unwrap().include_paths {
-		config.include(path.to_str().unwrap());
+		build.include(path.to_str().unwrap());
 	}
 
-	config.compile("libhidapi-libusb.a");
+	build.compile("libhidapi-libusb.a");
 
 	Ok(())
 }
 
 #[cfg(target_os = "macos")]
 fn build() -> io::Result<()> {
-	let mut config = cc::Build::new();
+	let mut build = cc::Build::new();
 
-	config.file(source().join("libusb/hid.c"));
-	config.include(source().join("hidapi"));
+	build.file(source().join("libusb/hid.c"));
+	build.include(source().join("hidapi"));
+	build.static_flag(true);
 
 	for path in pkg_config::find_library("libusb-1.0").unwrap().include_paths {
-		config.include(path.to_str().unwrap());
+		build.include(path.to_str().unwrap());
 	}
 
-	config.compile("libhidapi.a");
+	build.compile("libhidapi.a");
 
 	Ok(())
 }
 
 #[cfg(target_os = "windows")]
 fn build() -> io::Result<()> {
-	let mut config = cc::Build::new();
+	let mut build = cc::Build::new();
 
-	config.file(source().join("windows/hid.c"));
-	config.include(source().join("hidapi"));
+	build.file(source().join("windows/hid.c"));
+	build.include(source().join("hidapi"));
+	build.static_flag(true);
 
-	config.compile("libhidapi.a");
+	build.compile("libhidapi.a");
 
 	Ok(())
 }
