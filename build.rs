@@ -22,10 +22,19 @@ fn output() -> PathBuf {
 }
 
 fn source() -> PathBuf {
-	output().join("hidapi")
+	if let Ok(path) = env::var("HIDAPI_PATH") {
+		path.into()
+	}
+	else {
+		output().join("hidapi")
+	}
 }
 
 fn fetch() -> io::Result<()> {
+	if env::var("HIDAPI_PATH").is_ok() {
+		return Ok(());
+	}
+
 	Command::new("git")
 		.current_dir(&output())
 		.arg("clone")
