@@ -11,8 +11,8 @@ fn main() {
 		return;
 	}
 
-	fetch().unwrap();
-	build().unwrap();
+	fetch().expect("failed to checkout hidapi sources, internet connection and git are needed");
+	build().expect("failed to build hidapi sources");
 
 	println!("cargo:rustc-link-search=native={}", output().to_string_lossy());
 }
