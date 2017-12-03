@@ -33,7 +33,8 @@ extern "C" { }
 #[cfg_attr(target_os = "windows", link(name = "setupapi"))]
 extern "C" { }
 
-#[cfg_attr(all(feature = "static", target_os = "linux"), link(name = "hidapi-libusb", kind = "static"))]
+#[cfg_attr(all(feature = "static", not(feature = "build"), target_os = "linux"), link(name = "hidapi-libusb", kind = "static"))]
+#[cfg_attr(all(feature = "static", feature = "build", target_os = "linux"), link(name = "hidapi-libusb-rust", kind = "static"))]
 #[cfg_attr(all(not(feature = "static"), target_os = "linux"), link(name = "hidapi-libusb"))]
 #[cfg_attr(all(feature = "static", not(target_os = "linux")), link(name = "hidapi", kind = "static"))]
 #[cfg_attr(all(not(feature = "static"), not(target_os = "linux")), link(name = "hidapi"))]
